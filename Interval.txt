@@ -1,0 +1,29 @@
+def greedy_interval_scheduling(tasks):
+    tasks.sort(key=lambda x: x[1])
+    solution = []
+    finish_time = tasks[0][0]
+    
+    for task in tasks:
+        start, end = task
+        if start >= finish_time:
+            solution.append(task)
+            finish_time = end
+    return solution
+
+def read_integer(prompt):
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("Please enter a valid integer.")
+
+tasks = []
+num_tasks = read_integer("Enter the number of tasks: ")
+
+for i in range(num_tasks):
+    start = read_integer(f"Enter starting time for task {i+1}: ")
+    end = read_integer(f"Enter ending time for task {i+1}: ")
+    tasks.append((start, end))
+    print()
+selected_tasks = greedy_interval_scheduling(tasks)
+print("Selected Optimal tasks:", selected_tasks)
